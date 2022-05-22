@@ -23,7 +23,7 @@
 7. 默认this是空对象，和global并不是一样的 this == global // false
 
 # process
-
+git push -u origin --all
 
 # path
 1. basename() path.basename(__filename, 'js') = path
