@@ -66,7 +66,39 @@ git push -u origin --all
 1. concat： 将多个buffer拼接成一个新的buffer
 2. isBuffer：判断当前数据是否为buffer
 
-# Fs
+# Fs是内置核心模块，提供文件系统操作API
+1. 权限位（用户对于文件所具备的操作权限）
+2. flag (对文件操作方式)
+    r: 可读
+    w: 可写
+    s: 同步
+    +: 执行相反操作
+    X: 表示排它操作
+    a: 追加操作
+3. fd就是操作系统分配给被打开文件的表示标识
+
+# 文件读写与拷贝操作
+1. readFile
+2. writeFile
+3. appendfile
+4. copyFile
+5. watchFile
+
+# md 转html
+
+# 文件打开与关闭
+1. fs.open(path, 'r' ,(err, fd) => {})
+2. fs.close(fd, err => {})
+
+# 大文件的读取和写入
+1. 文件a 《--buffer--》 文件b
+2. fs.open fs.read fs.write
+# 文件拷贝自定义实现
+
+# Fs之目录操作
+
+
+
 
 
 
