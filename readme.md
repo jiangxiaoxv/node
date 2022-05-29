@@ -96,7 +96,109 @@ git push -u origin --all
 # 文件拷贝自定义实现
 
 # Fs之目录操作
-access 
+1. access: 判断文件或目录是否具有操作权限
+2. stat: 获取目录及文件信息
+3. mkdir: 创建目录
+4. rmdir: 删除目录
+5. readdir: 读取目录中内容
+6. unlink: 删除指定文件 
+
+
+# 递归删除目录
+
+# 模块化
+1. Commonjs
+2. AMD 规范 require.js
+3. CMD 规范 Sea.js
+4. Es modules 规范
+
+# Commonjs
+1. 是语言层面上的规范
+
+2. 模块引用
+3. 模块定义
+4. 模块标识
+
+5. 任意一个文件就是一个模块，具有独立的作用域
+6. 使用require导入其他模块
+7. 将模块id传入require实现目标模块定位
+
+module属性
+1. 任意js文件就是一个模块，可以直接使用module属性
+2. id： 返回模块标识符，一般是一个绝对路径
+3. filename： 返回文件模块的绝对路径
+4. loaded：返回boolean，表示模块是否完成加载
+5. parent：返回对象存放调用当前模块的模块
+6. children：返回数组，存放当前模块调用的其他模块
+7. exports：返回当前模块需要暴露的内容
+8. paths：返回数组，存放不同目录下的node_modules位置
+
+module 与 module.exports 的区别
+1. module.exports 与 exports 都指向同一块内存地址
+2. 不能给exports 重新赋值，否则就切断了 exports 与
+   module.exports的联系，就是指向不是同一个地址了，
+   exports 就变成局部变量了
+
+require 属性
+1. 基本功能是读入并且执行一个模块文件
+2. resolve：返回模块文件绝对路径
+3. extensions：依据不同后缀名执行解析操作
+4. main：返回主模块对象
+
+Commonjs规范
+1. 起初是为了弥补js语言模块化缺陷
+2. commonjs是语言层面的规范，当前主要用于node.js
+3. 规定模块化分为引入、定义、标识符三个部分
+4. 在任意模块中可以直接使用包含模块信息
+5. require接收标识符，加载目标模块
+6. exports与module.exports都能到处模块数据
+7. 定义模块的加载是同步完成
+
+
+# 模块分类及加载流程
+1. 核心模块： node源码编译时写入到二进制文件中
+2. 文件模块： 代码运行时，动态加载
+
+加载流程
+1. 路径分析： 依据标识符确定模块位置
+   路径标识符   
+   非路径标识符 fs path url util
+
+2. 文件定位： 确定目标模块中具体的文件及文件类型
+   .js -> .json -> .node -> 目录包 -> package.json -> 使用JSON.parse()
+   .main.js -> main.json -> main.node(main字段)
+    将index作为目标模块中的具体文件名称（没有main字段）
+
+3. 编译执行： 采用对应的方式完成文件的编译执行
+   - 将某个具体类型的文件按照相应的方式进行编译和执行
+   - 创建新对象，按照路径载入，完成编译执行
+   - 缓存有限原则，提高模块加载速度，使用路径作为索引进行缓存
+
+# 模块加载源码分析
+
+
+# 内置模块之VM
+
+
+# 模拟文件模块加载实现
+1. 核心逻辑
+   - 路径分析
+   - 缓存优化
+   - 文件定位
+   - 编译执行
+
+
+# 时间模块
+1. 通过Eventemitter类实现事件统一管理
+
+
+
+
+
+
+
+
+
 
 
 
