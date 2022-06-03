@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
-
-
 const filePath = path.join(path.resolve(__dirname), '../json/test.txt')
+
+
 // readFile
 /* fs.readFile(filePath, 'utf-8', (err, data) => {
     if (!err) {
