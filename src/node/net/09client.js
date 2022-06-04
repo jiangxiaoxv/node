@@ -9,10 +9,7 @@ const MyTransformCode = require('./08myTransform')
 let overageBuffer = null
 let ts = new MyTransformCode()
 
-client.write(ts.encode('拉勾教育', 1))
-client.write(ts.encode('拉勾教育'))
-client.write(ts.encode('拉勾教育'))
-client.write(ts.encode('拉勾教育'))
+// client.write(ts.encode('jx', 1))
 
 
 client.on('data', (chunk) => {
