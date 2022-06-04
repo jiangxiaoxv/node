@@ -66,6 +66,17 @@ class MyFileReadStream extends EventEmitter {
             this.emit('open', fd)
         })
     }
+    pipe(ws) {
+        this.on('data', (data) => {
+            let flag = ws.write(data)
+            if (!flag) {
+                this.pause()
+            }
+        })
+        ws.on('drain', () => {
+            this.resume()
+        })
+    }
 }
 
 let rs = new MyFileReadStream(filePath, {
@@ -82,7 +93,7 @@ rs.on('error', (err) => {
 }) */
 
 
-rs.on('data', (chunk) => {
+/* rs.on('data', (chunk) => {
     console.log(chunk.toString())
 })
 
@@ -93,3 +104,6 @@ rs.on('end', () => {
 rs.on('close', () => {
     console.log('close')
 })
+ */
+
+module.exports = MyFileReadStream
