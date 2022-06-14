@@ -1,4 +1,4 @@
-const _ = require('loadsh')
+const _ = require('lodash')
 /* function checkAge(age) {
     let min = 18
     return age >= min
