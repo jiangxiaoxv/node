@@ -27,6 +27,10 @@ class Container {
     map(fn) {
         return Container.of(fn(this._value))
     }
+
+    value(f) {
+        return f(this._value)
+    }
 }
 let r = Container.of(5).map(x => x + 1).map(x => x * x).map(x => {
     console.log(x)

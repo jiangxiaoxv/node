@@ -17,7 +17,11 @@ class MayBe {
     isNothing() {
         return this._value === null || this._value === undefined
     }
+    
 
+    unsafeGet() {
+        return this._value
+    }
 }
 // const r = MayBe.of(null)
 //     .map(x => x.toUpperCase())
