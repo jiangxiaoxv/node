@@ -164,5 +164,59 @@ GC
 
 
 
+# V8引擎工作流程
+1. scanner 成token
+2. parser 是一个解析器
+3. 预解析 
+   - 跳过未被使用的代码
+   - 不生成AST， 创建无变量引用和声明的scopes
+   - 依据规范抛出特定错误
+   - 解析速度更快
+4. 全量解析
+   - 解析被使用的代码
+   - 生成AST
+   - 构建具体scopes信息，变量引用、声明等
+   - 抛出所有语法错误
+
+5. Ignition 是V8提供的一个解释器
+
+# 堆栈操作
+1. VO（G）全局变量对象
+2. GO 全局对象，是一个对象，会有一个内存的空间地址，不是VO
+
+
+# 引用类堆栈处理处理(16进制地址)
+var obj1 = {x: 100}
+var obj2 = obj1
+
+obj1.y = obj1 = {x: 200} // obj1.y = (obj1 = {x: 200})
+console.log(obj1.y) // undefined
+console.log(obj2) // {x: 100, y: {x: 200}}
+
+# 函数堆栈处理
+var arr = ['zce', 'alishi']
+function foo(obj) {
+    obj[0] = 'zoe'
+    obj = ['xx']
+    obj[1] = '大前端'
+    console.log(obj)
+}
+
+foo(arr)
+console.log(arr)
+1. 函数执行时做的事情
+   - 确定作用域连： 当前执行上下文，上级执行上下文
+   - 确定this
+   - 初始化arguments
+   - 形参赋值
+   - 变量提升
+   - 执行代码
+   
+
+
+
+
+
+
 
 
