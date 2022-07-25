@@ -1,0 +1,13 @@
+{
+  "name": "sample-scaffolding",
+  "version": "1.0.0",
+  "main": "cli.js",
+  "license": "MIT",
+  "bin": "cli.js",
+  "dependencies": {
+    "ejs": "^3.1.8"
+  },
+  "devDependencies": {
+    "inquirer": "^9.0.1"
+  }
+}
