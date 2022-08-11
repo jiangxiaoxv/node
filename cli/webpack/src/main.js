@@ -5,7 +5,7 @@ import '../index.md'
 
 const p = new Promise((res, rej) => {
     setTimeout(() => {
-        console.log('舒适')
+        console.log('舒适3')
         res(12)
     }, 1000);
 })

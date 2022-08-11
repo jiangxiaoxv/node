@@ -4,6 +4,8 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const resolve = dir => path.resolve(__dirname, dir);
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const copyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
     mode: 'development', // none production development
@@ -23,7 +25,7 @@ module.exports = {
     output: {
         filename: '[name]_[contenthash:8].js',
         path: path.join(__dirname, './dist'),
-        clean: true, // 每次打包的时候清空dist目录内容
+        // clean: true, // 每次打包的时候清空dist目录内容
         // assetModuleFilename: 'images/[name][ext]', // asset/resource
     },
     module: {
@@ -32,7 +34,7 @@ module.exports = {
                 test: /\.md$/,
                 type: "asset/resource",
                 generator: {
-                    filename: "html/[name].html",
+                    filename: "html/[name]_[contenthash:8].html",
                 },
             },
             {
@@ -132,9 +134,32 @@ module.exports = {
     },
     plugins: [
         // new webpack.HotModuleReplacementPlugin(),  // 热更新插件
+        new webpack.HotModuleReplacementPlugin(),
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: path.join(__dirname, './src/html/index.html'),
             inject: 'body', // 在body里面生成script
-        })
+            title: '白嫖学习的',
+            meta: {
+                viewport: 'width=device-width'
+            },
+            templateParameters: {
+                h1text: 'hello World'
+            },
+            filename: 'index.html',
+        }),
+        
+        new HtmlWebpackPlugin({
+            title: '多页面应用2',
+            template: './src/html/index2.html',
+            inject: 'body',
+            filename: 'index2.html',
+            publicPath: '/'
+        }),
+        new copyWebpackPlugin({
+            patterns: [
+              { from: "public", to: "public" },
+            ],
+        }),
     ]
 }

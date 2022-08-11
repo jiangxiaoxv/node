@@ -108,3 +108,15 @@ url-loader 不满足条件内部会调用file-loader处理，所以webpack
             },
         ]
     },
+
+# 模版语法与html-loader
+最近在使用webpack的过程中，发现html-webpack-plugin和html-loader有冲突，同时使用会导致html-webpack-plugin的ejs模版语法失效，无法动态标题(htmlWebpackPlugin.options.title代码会直接输出到页面上)、无法在页面使用js变量等； 如果放弃html-loader，只用html-webpack-plugin自带的ejs语法，又无法达到嵌套引用的效果，即引入的html中如果还有引入语法，会直接在页面输出代码，而不会引入页面进来。
+
+# copyWebpackPlugin
+1. new CopyPlugin({
+        patterns: [
+            { from: "public", to: "public" },
+        ],
+    }),
+
+# webpack 工作原理
