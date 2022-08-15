@@ -6,9 +6,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const resolve = dir => path.resolve(__dirname, dir);
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const copyWebpackPlugin = require('copy-webpack-plugin')
+const MyPlugin = require('./src/myPlugins/index.js')
 
 module.exports = {
-    mode: 'development', // none production development
+    mode: 'none', // none production development
     entry: path.join(__dirname, './src/main.js'),
     devServer: {
         port: 3000,
@@ -25,12 +26,12 @@ module.exports = {
     output: {
         filename: '[name]_[contenthash:8].js',
         path: path.join(__dirname, './dist'),
-        // clean: true, // 每次打包的时候清空dist目录内容
+        clean: true, // 每次打包的时候清空dist目录内容
         // assetModuleFilename: 'images/[name][ext]', // asset/resource
     },
     module: {
         rules: [
-            {
+            /* {
                 test: /\.md$/,
                 type: "asset/resource",
                 generator: {
@@ -51,7 +52,7 @@ module.exports = {
                         loader: resolve('./src/myLoader/markdown-loader.js'),
                     },
                 ]
-            },
+            }, */
             /* 
             {
                 test: /\.(htm|html)$/, // 处理html中的img
@@ -85,7 +86,7 @@ module.exports = {
                     'css-loader'
                 ]
             },
-            {
+            /* {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
@@ -94,7 +95,7 @@ module.exports = {
                         presets: ['@babel/preset-env']
                     }
                 }
-            },
+            }, */
             /* {
                 test: /\.(jpg|png|gif)$/,
                 type: 'javascript/auto',
@@ -134,8 +135,9 @@ module.exports = {
     },
     plugins: [
         // new webpack.HotModuleReplacementPlugin(),  // 热更新插件
-        new webpack.HotModuleReplacementPlugin(),
-        new CleanWebpackPlugin(),
+        // new webpack.HotModuleReplacementPlugin(),
+        // new CleanWebpackPlugin(),
+        new MyPlugin(),
         new HtmlWebpackPlugin({
             template: path.join(__dirname, './src/html/index.html'),
             inject: 'body', // 在body里面生成script
@@ -148,8 +150,7 @@ module.exports = {
             },
             filename: 'index.html',
         }),
-        
-        new HtmlWebpackPlugin({
+        /* new HtmlWebpackPlugin({
             title: '多页面应用2',
             template: './src/html/index2.html',
             inject: 'body',
@@ -160,6 +161,6 @@ module.exports = {
             patterns: [
               { from: "public", to: "public" },
             ],
-        }),
+        }), */
     ]
 }

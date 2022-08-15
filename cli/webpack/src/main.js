@@ -1,6 +1,6 @@
 import {lover} from './module'
 import './css/index.css'
-import '../index.md'
+// import '../index.md'
 
 
 const p = new Promise((res, rej) => {
