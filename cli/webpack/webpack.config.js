@@ -11,10 +11,24 @@ const MyPlugin = require('./src/myPlugins/index.js')
 module.exports = {
     mode: 'none', // none production development
     entry: path.join(__dirname, './src/main.js'),
+    // devtool: 'eval',
     devServer: {
         port: 3000,
-        static: './dist', // 本地服务器所加载文件的目录
+        static: './dist', // 本地服务器所加载文件的目录，webpack5的配置
         compress: true,
+        proxy: {
+            '/api': {
+                // http://localhost:8080/api/users
+                target: 'https://api.github.com',
+                secure: false,
+                pathRewrte: {
+                    '^/api': ''
+                },
+                // 不能使用localhost:8080作为请求github的主机号
+                changeOrigin: true
+            }
+        }
+        // contentBase: [] , webpack4的配置
     },
     resolve: {
         alias: {
@@ -134,7 +148,7 @@ module.exports = {
         ]
     },
     plugins: [
-        // new webpack.HotModuleReplacementPlugin(),  // 热更新插件
+        new webpack.HotModuleReplacementPlugin(),  // 热更新插件
         // new webpack.HotModuleReplacementPlugin(),
         // new CleanWebpackPlugin(),
         new MyPlugin(),
@@ -156,11 +170,12 @@ module.exports = {
             inject: 'body',
             filename: 'index2.html',
             publicPath: '/'
-        }),
-        new copyWebpackPlugin({
+        }), */
+        // 开发阶段最好不要使用这个插件
+        /* new copyWebpackPlugin({
             patterns: [
               { from: "public", to: "public" },
             ],
-        }), */
+        }),  */
     ]
 }

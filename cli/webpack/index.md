@@ -127,3 +127,7 @@ url-loader 不满足条件内部会调用file-loader处理，所以webpack
 
 # 增强webpack开发体验
 
+# webpack 配置Source-map
+1. devtool： inline-source-map
+2. eval    构建速度快 能定位源代码文件名称，不知道行列信息，是通过原声的eval函数的注视信息记录文件名的
+3.                    

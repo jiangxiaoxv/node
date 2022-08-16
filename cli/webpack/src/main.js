@@ -5,7 +5,12 @@ import './css/index.css'
 
 const p = new Promise((res, rej) => {
     setTimeout(() => {
-        console.log('舒适3')
-        res(12)
+        fetch('/api/users').then(res => {
+            console.logs(res)
+            
+        }, err => {
+            console.logs(err)
+            // console.log(err)
+        })
     }, 1000);
 })
