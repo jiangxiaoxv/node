@@ -1,5 +1,5 @@
 
-const fs = require('fs')
+// const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -7,6 +7,9 @@ const resolve = dir => path.resolve(__dirname, dir);
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const copyWebpackPlugin = require('copy-webpack-plugin')
 const MyPlugin = require('./src/myPlugins/index.js')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
+const TerserWebpackPlugin = require('terser-webpack-plugin')
 
 module.exports = {
     mode: 'none', // none production development
@@ -16,6 +19,8 @@ module.exports = {
         port: 3000,
         static: './dist', // 本地服务器所加载文件的目录，webpack5的配置
         compress: true,
+        hot: true,
+        // hot: 'only',
         proxy: {
             '/api': {
                 // http://localhost:8080/api/users
@@ -42,6 +47,19 @@ module.exports = {
         path: path.join(__dirname, './dist'),
         clean: true, // 每次打包的时候清空dist目录内容
         // assetModuleFilename: 'images/[name][ext]', // asset/resource
+    },
+    optimization: {
+        usedExports: true, // tree shaking
+        minimize: true, // 代码压缩
+        concatenateModules: true, // 尽可能的将所有模块合并输出到一个函数中，提升了运行效率，又压缩了代码
+        sideEffects: true, // 检查package.json 的sideEffects,这里是开启这个功能
+        splitChunks: {
+            chunks: 'all' // 会把所有的公共模块都提取出来
+        },
+        minimizer: [
+            new OptimizeCssAssetsWebpackPlugin(), // 由minimize开关控制，这样打破了webpack自动压缩js的功能
+            new TerserWebpackPlugin(),
+        ]
     },
     module: {
         rules: [
@@ -96,20 +114,25 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    'style-loader',
+                    // 'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader'
                 ]
             },
-            /* {
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
                         presets: ['@babel/preset-env']
+                        /* presets: [
+                            ['@babel/preset-env', {modules: 'commonjs'}], // 这里会导致摇树优化失效，默认modules会根据环境进行auto处理
+                            ['@babel/preset-env', {modules: false}] // 可以确保不会转化为commonjs规范，影响摇树优化
+                        ] */
                     }
                 }
-            }, */
+            },
             /* {
                 test: /\.(jpg|png|gif)$/,
                 type: 'javascript/auto',
@@ -164,6 +187,12 @@ module.exports = {
             },
             filename: 'index.html',
         }),
+        new MiniCssExtractPlugin({
+            // filename: '[name]_[hash].bundle.css',
+            // filename: '[name]_[chunkhash:5].bundle.css',
+            filename: '[name]_[contenthash:5].bundle.css',
+        }),
+        // new OptimizeCssAssetsWebpackPlugin(),
         /* new HtmlWebpackPlugin({
             title: '多页面应用2',
             template: './src/html/index2.html',

@@ -130,4 +130,45 @@ url-loader 不满足条件内部会调用file-loader处理，所以webpack
 # webpack 配置Source-map
 1. devtool： inline-source-map
 2. eval    构建速度快 能定位源代码文件名称，不知道行列信息，是通过原声的eval函数的注视信息记录文件名的
-3.                    
+
+# 模块热替换
+1. module.hot 是由插件提供的  new webpack.HotModuleReplacementPlugin(),  // 热更新插件
+
+
+# bable-loader && tree shaking
+1. 必须使用esm
+2. babel-loader 会转化为commonjs；比如@babel/preset-env就会转化为commonjs，此时摇树优化就会失效；新版本没有这个问题
+3. sideEffects 副作用；模块执行时除了导出成员之外所做的事情
+   一般用于npm包标记是否有副作用
+4. 确定代码没有副作用；
+5. package.json sideEffects: ['./src/extentd.js'] 这是有副作用的代码
+
+# code splitting
+1. 所有的代码都会被打包在一起bundle体积过大
+2. 并不是所有模块在启动时都是必要的， 浪费带宽
+3. 分包，按需加载
+4. 模块按照不同的规则，打包到不同的bundle当中
+5. 多入口打包，输出多个打包结果
+6. 动态导入，模块的按需加载
+
+# 多入口打包
+1. 一个页面对应一个入口
+2. 提取公共包
+3. 不同入口肯定会有公共模块
+
+# 按需加载， 动态导入模块，自动处理分包，按需加载
+1. 需要用到某个模块时，加载哪个模块，动态导入
+2. 动态导入的模块都会被自动分包
+
+# 魔法注释
+1. import(/* webpackChunkName:'module' */'./src/module.js')
+
+
+# MiniCssExtractPlugin 实现css文件模块的按需加载
+1. css 超过150kb才需要单独提取出来，避免发生一次新的http请求
+
+# Css压缩 optimize-css-assets-webpack-plugin
+1. webpack只压缩js文件
+2. optimize-css-assets-webpack-plugin 放在optimize里面会影响js压缩
+3. 所以需要js压缩插件 yarn add terser-webpack-plugin -D
+
