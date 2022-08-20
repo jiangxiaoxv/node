@@ -122,16 +122,22 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env']
-                        /* presets: [
-                            ['@babel/preset-env', {modules: 'commonjs'}], // 这里会导致摇树优化失效，默认modules会根据环境进行auto处理
-                            ['@babel/preset-env', {modules: false}] // 可以确保不会转化为commonjs规范，影响摇树优化
-                        ] */
-                    }
-                }
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env']
+                            /* presets: [
+                                ['@babel/preset-env', {modules: 'commonjs'}], // 这里会导致摇树优化失效，默认modules会根据环境进行auto处理
+                                ['@babel/preset-env', {modules: false}] // 可以确保不会转化为commonjs规范，影响摇树优化
+                            ] */
+                        }
+                    },
+                    /* {
+                        loader: 'eslint-loader',
+                        enforce: 'pre'
+                    } */
+                ]
             },
             /* {
                 test: /\.(jpg|png|gif)$/,
