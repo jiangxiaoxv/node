@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "eslint ./",
-    "precommit": "lint-staged && npm run test"
+    "precommit": "lint-staged"
   },
   "keywords": [],
   "author": "",
@@ -36,7 +36,13 @@
   "sideEffects": false,
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test"
+      "pre-commit": "npm run precommit"
     }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint",
+      "git add"
+    ]
   }
 }

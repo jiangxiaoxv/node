@@ -51,6 +51,24 @@
 # husky实现git hooks的使用需求，不用编写sheel
 
 
+# lint-stage
+1. yarn add lint-staged -D
+2. "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint",
+      "git add"
+    ]
+  }
+  "scripts": {
+    "test": "eslint ./",
+    "precommit": "lint-staged"
+  },
+
 
 
 
