@@ -33,10 +33,6 @@
     "lodash": "^4.17.21",
     "mime": "^3.0.0"
   },
-  "sideEffects": false,
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run precommit"
-    }
-  }
+  "sideEffects": false
+  
 }
