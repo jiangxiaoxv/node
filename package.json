@@ -7,7 +7,8 @@
     "lgserve": "./src/node/www/bin.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint ./",
+    "precommit": "lint-staged && npm run test"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +33,10 @@
     "lodash": "^4.17.21",
     "mime": "^3.0.0"
   },
-  "sideEffects": false
-  
+  "sideEffects": false,
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test"
+    }
+  }
 }
