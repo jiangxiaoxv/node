@@ -19,6 +19,13 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
+  {
+    path: "/dynatic/:id",
+    name: "dynatic",
+    props: true, // params 传递到组建中
+    component: () =>
+      import(/* webpackChunkName: "dynatic" */ "../views/DynaticRouter.vue"),
+  },
 ];
 
 const router = new VueRouter({
