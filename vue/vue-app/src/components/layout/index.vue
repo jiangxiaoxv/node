@@ -3,7 +3,7 @@
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
-      <router-link to="/dynatic/12">dynatic</router-link>
+      <router-link to="/dynatic">dynatic</router-link>
     </nav>
   </div>
 </template>
